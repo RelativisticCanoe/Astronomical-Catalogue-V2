@@ -7,6 +7,7 @@ Also includes utilities for saving object to file. */
 //STL Headers
 #include <vector>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -68,8 +69,10 @@ namespace astrocat
             std::string get_name() const {return this->obj_name;}
             int get_sat_no() const {return this->sat_no;}
 
-            void output_props(); //Change to sstream?
-            virtual void output_spec_props() = 0;
+            //Output formatting of attributes for cout in main program
+            //Using std::string as return type, may change directly to strstream for easier modification e.g. indenting
+            std::string output_props(); 
+            std::string output_spec_props();
 
             //Setters
             void add_satelliite(std::shared_ptr<astrocat::satellite> sat_ptr);

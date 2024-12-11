@@ -1,6 +1,7 @@
 //STL Headers
 #include <vector>
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -79,5 +80,38 @@ namespace astrocat
         std::swap(this->sat_vector, obj.sat_vector);
         std::swap(this->sat_no, obj.sat_no);
         return *this;
+    }
+
+    std::string astro_object::output_props()
+    {
+        /* Writes the properties shared by all astro_object instances to a string for output via cout.
+           Calls an additional function to output class-specific properties within each derived class.
+           Also writes the number of satellites (and eventually the names of the satellites) to the string.
+           
+           SI units for mass and distance are placeholders until I create astronomical unit classes with
+           conditional output e.g. determining whether the output should be in AU, pc or km for distances.*/
+        std::stringstream buffer{};
+        buffer.precision(5); 
+        buffer << "Name: " << this->obj_name << " \n"
+            << "Type: " << this->obj_type << " \n"
+            << "Mass: " << this->mass << " kg" << "\n"
+            << "Rotational Velocity: " << this->rot_vel << "rads^-1" << "\n"
+            << "Distance: " << this->distance << " km" << "\n"
+            << "Redshift: " << this->redshift << " \n"
+            << this->output_spec_props()
+            << "No. Satellites: " << this->sat_no << " \n" //Insert some sort of satellite name-fetch here
+            << "-------------------" << std::endl; //Helps to distingguish that the object's properties end here, like a receipt of sorts
+        return buffer.str();
+
+    }
+
+    std::string astro_object::output_spec_props()
+    {
+        /* Returns derived-class-specific attributes via overrides in implementation. As this is the base class, 
+           it has no specific attributes that the derived classes don't also have, so this function returns a
+           newline unless overriden. */
+        std::stringstream buffer{};
+        buffer << std::endl;
+        return buffer.str();
     }
 }
