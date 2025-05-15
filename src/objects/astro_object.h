@@ -63,8 +63,9 @@ namespace astrocat
             virtual void save_to_file(std::fstream& file_data);
 
             //Getters
-            astrocat::satellite get_sat(int& index);
-            std::vector<astrocat::satellite> get_all_sats();
+            /* Return const references */
+            const astrocat::satellite& get_sat(int index);
+            const std::vector<astrocat::satellite>& get_all_sats();
 
             std::string get_name() const {return this->obj_name;}
             int get_sat_no() const {return this->sat_no;}

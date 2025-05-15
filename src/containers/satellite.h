@@ -21,9 +21,15 @@ namespace astrocat
             double orbit_dist{0.0};
             double orbit_tilt{0.0};
             double orbit_ecc{0.0};
+            bool enabled{false};
         
         public:
-            
+            satellite() = default;
+            satellite(bool enable){enabled = enable;}
+            ~satellite();
+
+            //Getter returns basic type -> not worth reference given that return will be out of scope quickly
+            const bool get_enabled(){return enabled;}
     };
 };
 

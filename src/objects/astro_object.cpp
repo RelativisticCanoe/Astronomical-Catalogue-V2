@@ -102,7 +102,6 @@ namespace astrocat
             << "No. Satellites: " << this->sat_no << " \n" //Insert some sort of satellite name-fetch here
             << "-------------------" << std::endl; //Helps to distingguish that the object's properties end here, like a receipt of sorts
         return buffer.str();
-
     }
 
     std::string astro_object::output_spec_props()
@@ -113,5 +112,21 @@ namespace astrocat
         std::stringstream buffer{};
         buffer << std::endl;
         return buffer.str();
+    }
+
+    const satellite& astro_object::get_sat(int index)
+    {
+        /* NEEDS TO BE CAUGHT HIGHER IN THE MAIN PROGRAM IF BAD INPUT PROVIDED.
+           THE THROW HERE IS A FAILSAFE IN CASE OF UNEXPECTED INT INPUTS.*/
+        if(index >= this->sat_vector.size() || index < 0){
+            throw index;
+        } else{
+            return sat_vector[index];
+        }
+    }
+
+    const std::vector<satellite>& astro_object::get_all_sats()
+    {
+        return this->sat_vector;
     }
 }
